@@ -1,7 +1,16 @@
-import React from 'react'
-import { Link } from 'react-router'
+import React from 'react';
+import { Link, useNavigate } from 'react-router';
+import { usePuterStore } from '~/lib/puter';
 
 const Navbar = () => {
+  const { auth } = usePuterStore();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await auth.signOut();
+    navigate('/auth');
+  };
+
   return (
     <nav className='navbar'>
 
@@ -12,6 +21,14 @@ const Navbar = () => {
         <Link to="/upload" className=' primary-button w-fit'>
             Upload Resume 
         </Link>
+        {auth.isAuthenticated && (
+          <button
+            onClick={handleLogout}
+            className="primary-button w-fit"
+          >
+            Logout
+          </button>
+        )}
 
     </nav>
   )

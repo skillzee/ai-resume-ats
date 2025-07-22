@@ -50,7 +50,13 @@ const auth = () => {
                                     <p>Log Out</p>
                                 </button>
                             ):(
-                                <button className='auth-button' onClick={auth.signIn}>
+                                <button
+                                  className='auth-button'
+                                  onClick={async () => {
+                                    await auth.signIn();
+                                    navigate('/');
+                                  }}
+                                >
                                     <p>Log in</p>
                                 </button>
                             )}
